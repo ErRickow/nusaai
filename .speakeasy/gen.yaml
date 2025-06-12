@@ -18,6 +18,7 @@ generation:
     oAuth2PasswordEnabled: false
 typescript:
   version: 1.7.2
+  enableCustomCodeRegions: true
   additionalDependencies:
     dependencies:
       zod-to-json-schema: ^3.24.1
