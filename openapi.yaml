@@ -39,7 +39,7 @@ components:
       type: http
       scheme: bearer
       bearerFormat: API_KEY
-      description: API key untuk autentikasi. Format: Bearer <API_KEY>
+      description: API key untuk autentikasi.
 
 security:
   - ApiKeyAuth: []
@@ -705,9 +705,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/APIError'
 
-components:
+Components:
   schemas:
-    # Chat Completions Schemas
     ChatCompletionsRequest:
       type: object
       description: Request untuk chat completion.
