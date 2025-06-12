@@ -1,0 +1,1779 @@
+openapi: 3.0.3
+info:
+  title: NusantaraAI API
+  description: |
+    API NusantaraAI - OpenAI Compatible
+
+    **Rate Limit**  
+    Setiap API KEY memiliki limit berdasarkan tier:
+    - Free: 10 request/menit, 100/hari, 10.000 tokens/menit, 50.000/hari
+    - Basic: 50 request/menit, 500/hari, 100.000 tokens/menit, 500.000/hari
+    - Standard: 60 request/menit, 2000/hari, 100.000 tokens/menit, 1.000.000/hari
+    - Pro: 120 request/menit, 10.000/hari, 200.000 tokens/menit, 5.000.000/hari
+    - Enterprise: 200 request/menit, 50.000/hari, 500.000 tokens/menit, 10.000.000/hari
+
+    Limit berlaku **per API key** dan juga **per user** (akumulasi).  
+    Jika limit terlewati, akan mendapat error 429.  
+    Reset harian dan bulanan otomatis, serta auto-downgrade ke Free jika subscription habis.
+
+    **Authentication:** Gunakan header `Authorization: Bearer <API_KEY>`.
+
+    Untuk detail sistem rate limit, lihat dokumentasi MDX.
+
+  version: "5.0.0"
+  contact:
+    name: NusantaraAI Support
+    url: https://nusa.xyz
+    email: support@nusa.xyz
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.nusa.xyz/v1
+    description: Production server
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: API_KEY
+      description: API key untuk autentikasi. Format: Bearer <API_KEY>
+
+security:
+  - ApiKeyAuth: []
+
+tags:
+  - name: chat
+    description: Chat completion endpoints
+  - name: completions
+    description: Text completion endpoints
+  - name: embeddings
+    description: Vector embeddings generation
+  - name: models
+    description: Model information and management
+  - name: moderations
+    description: Content moderation
+  - name: usage
+    description: Usage statistics and monitoring
+  - name: reasoning
+    description: Enhanced reasoning capabilities
+  - name: system
+    description: System status and information
+
+paths:
+  /chat/completions:
+    post:
+      tags:
+        - chat
+      summary: Create chat completion (OpenAI-Compatible)
+      description: |
+        Membuat completion chat seperti OpenAI API.
+        Kirim array messages (role: user/assistant/system, content: string).
+        Mendukung streaming, function calling, dan berbagai parameter OpenAI.
+      operationId: chatCompletions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionsRequest'
+            examples:
+              simple:
+                summary: Contoh request sederhana
+                value:
+                  model: nusantara-base
+                  messages:
+                    - role: user
+                      content: "Apa itu NusantaraAI?"
+              with_system:
+                summary: Dengan system message
+                value:
+                  model: nusantara-base
+                  messages:
+                    - role: system
+                      content: "Kamu adalah asisten AI yang membantu dalam bahasa Indonesia."
+                    - role: user
+                      content: "Jelaskan tentang machine learning"
+                  temperature: 0.7
+                  max_tokens: 1000
+              streaming:
+                summary: Streaming response
+                value:
+                  model: nusantara-base
+                  messages:
+                    - role: user
+                      content: "Ceritakan tentang Indonesia"
+                  stream: true
+                  temperature: 0.8
+              with_tools:
+                summary: Function calling
+                value:
+                  model: nusantara-base
+                  messages:
+                    - role: user
+                      content: "Apa cuaca hari ini di Jakarta?"
+                  tools:
+                    - type: function
+                      function:
+                        name: get_weather
+                        description: Get current weather
+                        parameters:
+                          type: object
+                          properties:
+                            location:
+                              type: string
+                              description: City name
+                          required: ["location"]
+                  tool_choice: auto
+      responses:
+        '200':
+          description: Chat completion result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionsResponse'
+              examples:
+                success:
+                  summary: Contoh response sukses
+                  value:
+                    id: "chatcmpl-xyz"
+                    object: "chat.completion"
+                    created: 1717950000
+                    model: "nusantara-base"
+                    choices:
+                      - index: 0
+                        message:
+                          role: assistant
+                          content: "NusantaraAI adalah platform AI lokal Indonesia yang menyediakan model bahasa Indonesia."
+                        finish_reason: stop
+                    usage:
+                      prompt_tokens: 12
+                      completion_tokens: 15
+                      total_tokens: 27
+                    _metadata:
+                      creator: "nusantaraai"
+                      status: true
+                      timestamp: "2025-06-12T10:00:00Z"
+            text/event-stream:
+              schema:
+                type: string
+                description: Server-sent events untuk streaming
+              example: |
+                data: {"id":"chatcmpl-xyz","object":"chat.completion.chunk","created":1717950000,"model":"nusantara-base","choices":[{"index":0,"delta":{"content":"Halo"},"finish_reason":null}]}
+                
+                data: [DONE]
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '401':
+          description: API key missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+
+  /completions:
+    post:
+      tags:
+        - completions
+      summary: Create text completion (OpenAI-Compatible)
+      description: |
+        Membuat text completion dari prompt string.
+        Legacy endpoint untuk kompatibilitas dengan OpenAI.
+      operationId: textCompletions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TextCompletionsRequest'
+            examples:
+              simple:
+                summary: Contoh request sederhana
+                value:
+                  model: nusantara-base
+                  prompt: "Ibu kota Indonesia adalah"
+                  max_tokens: 50
+              creative:
+                summary: Creative writing
+                value:
+                  model: nusantara-base
+                  prompt: "Suatu hari di sebuah desa kecil"
+                  temperature: 1.0
+                  max_tokens: 200
+                  top_p: 0.9
+      responses:
+        '200':
+          description: Text completion result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TextCompletionsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '401':
+          description: API key missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+
+  /models:
+    get:
+      tags:
+        - models
+      summary: List available models
+      description: |
+        Mendapatkan daftar semua model yang tersedia.
+        Menampilkan informasi model, capabilities, dan status.
+      operationId: listModels
+      responses:
+        '200':
+          description: List of available models
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelsListResponse'
+              examples:
+                success:
+                  summary: Daftar model tersedia
+                  value:
+                    object: "list"
+                    data:
+                      - id: "nusantara-base"
+                        object: "model"
+                        created: 1717950000
+                        owned_by: "nusantaraai"
+                        description: "Model dasar NusantaraAI untuk percakapan umum"
+                        capabilities: ["chat", "completion", "reasoning"]
+                        context_length: 4096
+                        max_tokens_output: 2048
+                      - id: "nusantara-creative"
+                        object: "model"
+                        created: 1717950000
+                        owned_by: "nusantaraai"
+                        description: "Model kreatif untuk penulisan dan storytelling"
+                        capabilities: ["chat", "completion", "creative"]
+                        context_length: 8192
+                        max_tokens_output: 4096
+                      - id: "nusa-embedding-0001"
+                        object: "model"
+                        created: 1717950000
+                        owned_by: "nusantaraai"
+                        description: "Model embedding untuk vector similarity"
+                        capabilities: ["embeddings"]
+                        dimensions: 1536
+                    _metadata:
+                      creator: "nusantaraai"
+                      status: true
+                      timestamp: "2025-06-12T10:00:00Z"
+        '401':
+          description: API key missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+
+  /embeddings:
+    post:
+      tags:
+        - embeddings
+      summary: Create embeddings (OpenAI-Compatible)
+      description: |
+        Membuat embedding vector dari input text.
+        Mendukung single string atau array of strings.
+      operationId: embeddings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmbeddingsRequest'
+            examples:
+              single:
+                summary: Single text embedding
+                value:
+                  model: nusa-embedding-0001
+                  input: "contoh kalimat untuk embedding"
+              multiple:
+                summary: Multiple texts embedding
+                value:
+                  model: nusa-embedding-0001
+                  input: 
+                    - "kalimat pertama"
+                    - "kalimat kedua"
+                    - "kalimat ketiga"
+              with_format:
+                summary: Dengan encoding format
+                value:
+                  model: nusa-embedding-0001
+                  input: "contoh kalimat"
+                  encoding_format: "base64"
+      responses:
+        '200':
+          description: Embeddings result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmbeddingsResponse'
+              examples:
+                success:
+                  summary: Contoh response sukses
+                  value:
+                    object: "list"
+                    data:
+                      - object: "embedding"
+                        embedding: [0.12, 0.34, 0.56, -0.78, 0.91]
+                        index: 0
+                    model: "nusa-embedding-0001"
+                    usage:
+                      prompt_tokens: 5
+                      total_tokens: 5
+                    _metadata:
+                      creator: "nusantaraai"
+                      status: true
+                      timestamp: "2025-06-12T10:00:00Z"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '401':
+          description: API key missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+
+  /moderations:
+    post:
+      tags:
+        - moderations
+      summary: Content moderation check
+      description: |
+        Memeriksa konten untuk deteksi konten berbahaya atau tidak pantas.
+        Menggunakan model moderasi khusus untuk bahasa Indonesia.
+      operationId: moderations
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModerationsRequest'
+            examples:
+              single:
+                summary: Single text moderation
+                value:
+                  input: "Ini adalah contoh teks untuk dimoderasi"
+                  model: "text-moderation-latest"
+              multiple:
+                summary: Multiple texts moderation
+                value:
+                  input: 
+                    - "teks pertama"
+                    - "teks kedua"
+                  model: "text-moderation-latest"
+      responses:
+        '200':
+          description: Moderation results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModerationsResponse'
+              examples:
+                success:
+                  summary: Hasil moderasi
+                  value:
+                    id: "modr-xyz"
+                    model: "text-moderation-latest"
+                    results:
+                      - flagged: false
+                        categories:
+                          hate: false
+                          hate/threatening: false
+                          harassment: false
+                          harassment/threatening: false
+                          self-harm: false
+                          self-harm/intent: false
+                          self-harm/instructions: false
+                          sexual: false
+                          sexual/minors: false
+                          violence: false
+                          violence/graphic: false
+                        category_scores:
+                          hate: 0.001
+                          hate/threatening: 0.0001
+                          harassment: 0.002
+                          harassment/threatening: 0.0001
+                          self-harm: 0.0001
+                          self-harm/intent: 0.0001
+                          self-harm/instructions: 0.0001
+                          sexual: 0.001
+                          sexual/minors: 0.0001
+                          violence: 0.001
+                          violence/graphic: 0.0001
+                    _metadata:
+                      creator: "nusantaraai"
+                      status: true
+                      timestamp: "2025-06-12T10:00:00Z"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '401':
+          description: API key missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+
+  /usage:
+    get:
+      tags:
+        - usage
+      summary: Get usage statistics
+      description: |
+        Mendapatkan statistik penggunaan API untuk periode tertentu.
+        Menampilkan total requests, tokens, dan breakdown per model.
+      operationId: getUsage
+      parameters:
+        - in: query
+          name: start_date
+          schema:
+            type: string
+            format: date
+          description: Tanggal mulai (YYYY-MM-DD)
+          example: "2025-06-01"
+        - in: query
+          name: end_date
+          schema:
+            type: string
+            format: date
+          description: Tanggal akhir (YYYY-MM-DD)
+          example: "2025-06-12"
+        - in: query
+          name: model
+          schema:
+            type: string
+          description: Filter berdasarkan model tertentu
+          example: "nusantara-base"
+        - in: query
+          name: granularity
+          schema:
+            type: string
+            enum: [hour, day, month]
+            default: day
+          description: Granularitas data
+      responses:
+        '200':
+          description: Usage statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageResponse'
+              examples:
+                success:
+                  summary: Statistik penggunaan
+                  value:
+                    object: "usage"
+                    data:
+                      - timestamp: 1717977600
+                        usage: 1500
+                        requests: 50
+                        model: "nusantara-base"
+                        date: "2025-06-10"
+                      - timestamp: 1718064000
+                        usage: 2000
+                        requests: 75
+                        model: "nusantara-base"
+                        date: "2025-06-11"
+                    total_usage: 3500
+                    total_requests: 125
+                    tier_info:
+                      current_tier: "Standard"
+                      daily_limit: 2000
+                      monthly_limit: 1000000
+                    current_usage:
+                      today: 500
+                      this_month: 15000
+                      requests_today: 25
+                      requests_this_month: 800
+                    _metadata:
+                      creator: "nusantaraai"
+                      status: true
+                      timestamp: "2025-06-12T10:00:00Z"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '401':
+          description: API key missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+
+  /reasoning:
+    post:
+      tags:
+        - reasoning
+      summary: Enhanced reasoning completion
+      description: |
+        Endpoint khusus untuk tugas yang membutuhkan reasoning mendalam.
+        Menggunakan model yang dioptimalkan untuk logical thinking dan problem solving.
+      operationId: reasoning
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReasoningRequest'
+            examples:
+              math_problem:
+                summary: Mathematical reasoning
+                value:
+                  model: nusantara-reasoning
+                  messages:
+                    - role: system
+                      content: "Kamu adalah asisten AI yang ahli dalam problem solving dan reasoning matematis."
+                    - role: user
+                      content: "Jika sebuah kereta melaju dengan kecepatan 80 km/jam dan harus menempuh jarak 240 km, berapa lama waktu yang dibutuhkan? Jelaskan langkah-langkahnya."
+                  temperature: 0.3
+                  max_tokens: 1500
+              logical_puzzle:
+                summary: Logical reasoning
+                value:
+                  model: nusantara-reasoning
+                  messages:
+                    - role: user
+                      content: "Ada 3 kotak: merah, biru, dan hijau. Salah satu berisi hadiah. Petunjuk: 'Hadiah tidak di kotak merah'. 'Jika hadiah di kotak biru, maka kotak hijau kosong'. 'Kotak hijau tidak kosong'. Di mana hadiah tersebut?"
+                  temperature: 0.1
+      responses:
+        '200':
+          description: Reasoning completion result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionsResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '401':
+          description: API key missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+
+  /system/status:
+    get:
+      tags:
+        - system
+      summary: System status and information
+      description: |
+        Mendapatkan status sistem, informasi server, dan status tier user.
+        Berguna untuk monitoring health dan debugging.
+      operationId: systemStatus
+      responses:
+        '200':
+          description: System status information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatusResponse'
+              examples:
+                success:
+                  summary: Status sistem
+                  value:
+                    system:
+                      status: "operational"
+                      version: "5.0.0"
+                      uptime: 99.99
+                      server_time: "2025-06-12T10:00:00Z"
+                      models_available: 5
+                      total_requests_today: 15420
+                    your_tier: "Standard"
+                    your_usage:
+                      requests_today: 25
+                      requests_remaining_today: 1975
+                      tokens_today: 5000
+                      tokens_remaining_today: 995000
+                      reset_time: "2025-06-13T00:00:00Z"
+                    _metadata:
+                      creator: "nusantaraai"
+                      status: true
+                      timestamp: "2025-06-12T10:00:00Z"
+        '401':
+          description: API key missing or invalid
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+
+components:
+  schemas:
+    # Chat Completions Schemas
+    ChatCompletionsRequest:
+      type: object
+      description: Request untuk chat completion.
+      properties:
+        model:
+          type: string
+          example: nusantara-base
+          description: Nama model yang akan digunakan (wajib).
+        messages:
+          type: array
+          description: Array pesan conversation (role+content).
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 0.7
+          description: Kontrol randomness output (0 = deterministik, 2 = sangat kreatif).
+        max_tokens:
+          type: integer
+          minimum: 1
+          maximum: 4096
+          default: 1000
+          description: Maksimum token yang akan dihasilkan.
+        stream:
+          type: boolean
+          default: false
+          description: Apakah response akan di-stream secara real-time.
+        n:
+          type: integer
+          minimum: 1
+          maximum: 5
+          default: 1
+          description: Jumlah completion yang dihasilkan.
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 1
+          description: Nucleus sampling threshold.
+        frequency_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+          default: 0
+          description: Penalty untuk token yang sering muncul.
+        presence_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+          default: 0
+          description: Penalty untuk token yang sudah muncul.
+        response_format:
+          type: object
+          description: Format response yang diinginkan.
+          properties:
+            type:
+              type: string
+              enum: [text, json_object]
+              default: text
+        functions:
+          type: array
+          description: Daftar function yang bisa dipanggil (deprecated, gunakan tools).
+          items:
+            $ref: '#/components/schemas/FunctionDefinition'
+        tools:
+          type: array
+          description: Daftar tools yang tersedia untuk model.
+          items:
+            $ref: '#/components/schemas/Tool'
+        tool_choice:
+          oneOf:
+            - type: string
+              enum: [none, auto, required]
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum: [function]
+                function:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+          default: auto
+          description: Kontrol penggunaan tools.
+        web_search:
+          type: boolean
+          default: false
+          description: Aktifkan web search capabilities.
+        user:
+          type: string
+          description: User identifier untuk tracking.
+      required:
+        - model
+        - messages
+
+    ChatMessage:
+      type: object
+      properties:
+        role:
+          type: string
+          enum: [system, user, assistant, tool]
+          description: Peran pengirim pesan.
+        content:
+          type: string
+          description: Isi pesan.
+        name:
+          type: string
+          description: Nama pengirim (opsional).
+        tool_calls:
+          type: array
+          description: Tool calls yang dilakukan assistant.
+          items:
+            $ref: '#/components/schemas/ToolCall'
+        tool_call_id:
+          type: string
+          description: ID tool call yang sedang direspons (untuk role tool).
+      required:
+        - role
+        - content
+
+    ToolCall:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier untuk tool call.
+        type:
+          type: string
+          enum: [function]
+          description: Tipe tool call.
+        function:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Nama function yang dipanggil.
+            arguments:
+              type: string
+              description: JSON string arguments untuk function.
+          required:
+            - name
+            - arguments
+      required:
+        - id
+        - type
+        - function
+
+    Tool:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [function]
+          description: Tipe tool.
+        function:
+          $ref: '#/components/schemas/FunctionDefinition'
+      required:
+        - type
+        - function
+
+    FunctionDefinition:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nama function.
+        description:
+          type: string
+          description: Deskripsi function.
+        parameters:
+          type: object
+          description: JSON Schema untuk parameter function.
+      required:
+        - name
+        - description
+        - parameters
+
+    ChatCompletionsResponse:
+      type: object
+      description: Response dari chat completion.
+      properties:
+        id:
+          type: string
+          description: Unique identifier untuk completion.
+        object:
+          type: string
+          enum: [chat.completion, chat.completion.chunk]
+          description: Tipe object response.
+        created:
+          type: integer
+          description: Unix timestamp ketika completion dibuat.
+        model:
+          type: string
+          description: Model yang digunakan.
+        choices:
+          type: array
+          description: Array pilihan completion.
+          items:
+            $ref: '#/components/schemas/ChatChoice'
+        usage:
+          $ref: '#/components/schemas/Usage'
+        system_fingerprint:
+          type: string
+          description: Fingerprint sistem untuk reproducibility.
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - id
+        - object
+        - created
+        - model
+        - choices
+
+    ChatChoice:
+      type: object
+      properties:
+        index:
+          type: integer
+          description: Index pilihan dalam array.
+        message:
+          $ref: '#/components/schemas/ChatMessage'
+        delta:
+          $ref: '#/components/schemas/ChatMessage'
+        finish_reason:
+          type: string
+          enum: [stop, length, function_call, tool_calls, content_filter]
+          description: Alasan completion berhenti.
+        logprobs:
+          type: object
+          nullable: true
+          description: Log probabilities untuk token.
+      required:
+        - index
+
+    # Text Completions Schemas
+    TextCompletionsRequest:
+      type: object
+      description: Request untuk text completion.
+      properties:
+        model:
+          type: string
+          example: nusantara-base
+          description: Nama model yang akan digunakan (wajib).
+        prompt:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: Prompt input untuk completion.
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 0.7
+          description: Kontrol randomness output.
+        max_tokens:
+          type: integer
+          minimum: 1
+          maximum: 4096
+          default: 1000
+          description: Maksimum token yang akan dihasilkan.
+        stream:
+          type: boolean
+          default: false
+          description: Apakah response akan di-stream.
+        n:
+          type: integer
+          minimum: 1
+          maximum: 5
+          default: 1
+          description: Jumlah completion yang dihasilkan.
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 1
+          description: Nucleus sampling threshold.
+        frequency_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+          default: 0
+          description: Penalty untuk token yang sering muncul.
+        presence_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+          default: 0
+          description: Penalty untuk token yang sudah muncul.
+        stop:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+              maxItems: 4
+          description: Sequence untuk menghentikan generation.
+        user:
+          type: string
+          description: User identifier untuk tracking.
+      required:
+        - model
+        - prompt
+
+    TextCompletionsResponse:
+      type: object
+      description: Response dari text completion.
+      properties:
+        id:
+          type: string
+          description: Unique identifier untuk completion.
+        object:
+          type: string
+          enum: [text_completion]
+          description: Tipe object response.
+        created:
+          type: integer
+          description: Unix timestamp ketika completion dibuat.
+        model:
+          type: string
+          description: Model yang digunakan.
+        choices:
+          type: array
+          description: Array pilihan completion.
+          items:
+            $ref: '#/components/schemas/TextChoice'
+        usage:
+          $ref: '#/components/schemas/Usage'
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - id
+        - object
+        - created
+        - model
+        - choices
+
+    TextChoice:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Generated text completion.
+        index:
+          type: integer
+          description: Index pilihan dalam array.
+        logprobs:
+          type: object
+          nullable: true
+          description: Log probabilities untuk token.
+        finish_reason:
+          type: string
+          enum: [stop, length, content_filter]
+          description: Alasan completion berhenti.
+      required:
+        - text
+        - index
+        - finish_reason
+
+    # Models Schemas
+    ModelsListResponse:
+      type: object
+      description: Response daftar model yang tersedia.
+      properties:
+        object:
+          type: string
+          enum: [list]
+          description: Tipe object response.
+        data:
+          type: array
+          description: Array informasi model.
+          items:
+            $ref: '#/components/schemas/ModelInfo'
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - object
+        - data
+
+    ModelInfo:
+      type: object
+      description: Informasi detail model.
+      properties:
+        id:
+          type: string
+          description: Identifier unik model.
+        object:
+          type: string
+          enum: [model]
+          description: Tipe object.
+        created:
+          type: integer
+          description: Unix timestamp ketika model dibuat.
+        owned_by:
+          type: string
+          description: Pemilik model.
+        description:
+          type: string
+          description: Deskripsi model.
+        capabilities:
+          type: array
+          description: Kemampuan yang didukung model.
+          items:
+            type: string
+            enum: [chat, completion, embeddings, reasoning, creative, moderation]
+        context_length:
+          type: integer
+          description: Panjang context window maksimum.
+        max_tokens_output:
+          type: integer
+          description: Maksimum token output.
+        dimensions:
+          type: integer
+          description: Dimensi embedding (untuk model embedding).
+        pricing:
+          type: object
+          description: Informasi harga model.
+          properties:
+            input_tokens:
+              type: number
+              description: Harga per 1000 input tokens.
+            output_tokens:
+              type: number
+              description: Harga per 1000 output tokens.
+        permission:
+          type: array
+          description: Permission model.
+          items:
+            type: object
+        root:
+          type: string
+          description: Root model identifier.
+        parent:
+          type: string
+          nullable: true
+          description: Parent model identifier.
+      required:
+        - id
+        - object
+        - created
+        - owned_by
+
+    # Embeddings Schemas
+    EmbeddingsRequest:
+      type: object
+      description: Request untuk membuat embeddings.
+      properties:
+        model:
+          type: string
+          example: nusa-embedding-0001
+          description: Model embedding yang akan digunakan.
+        input:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: Input text untuk diembedding.
+        encoding_format:
+          type: string
+          enum: [float, base64]
+          default: float
+          description: Format encoding untuk embedding vector.
+        dimensions:
+          type: integer
+          description: Jumlah dimensi output (jika didukung model).
+        user:
+          type: string
+          description: User identifier untuk tracking.
+      required:
+        - input
+
+    EmbeddingsResponse:
+      type: object
+      description: Response dari embeddings endpoint.
+      properties:
+        object:
+          type: string
+          enum: [list]
+          description: Tipe object response.
+        data:
+          type: array
+          description: Array embedding data.
+          items:
+            $ref: '#/components/schemas/EmbeddingData'
+        model:
+          type: string
+          description: Model yang digunakan.
+        usage:
+          $ref: '#/components/schemas/Usage'
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - object
+        - data
+        - model
+        - usage
+
+    EmbeddingData:
+      type: object
+      description: Data embedding untuk satu input.
+      properties:
+        object:
+          type: string
+          enum: [embedding]
+          description: Tipe object.
+        embedding:
+          type: array
+          description: Vector embedding.
+          items:
+            type: number
+        index:
+          type: integer
+          description: Index input dalam request.
+      required:
+        - object
+        - embedding
+        - index
+
+    # Moderations Schemas
+    ModerationsRequest:
+      type: object
+      description: Request untuk content moderation.
+      properties:
+        input:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: string
+          description: Input text untuk dimoderasi.
+        model:
+          type: string
+          default: text-moderation-latest
+          description: Model moderasi yang akan digunakan.
+      required:
+        - input
+
+    ModerationsResponse:
+      type: object
+      description: Response dari moderations endpoint.
+      properties:
+        id:
+          type: string
+          description: Unique identifier untuk moderation.
+        model:
+          type: string
+          description: Model yang digunakan.
+        results:
+          type: array
+          description: Array hasil moderasi.
+          items:
+            $ref: '#/components/schemas/ModerationResult'
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - id
+        - model
+        - results
+
+    ModerationResult:
+      type: object
+      description: Hasil moderasi untuk satu input.
+      properties:
+        flagged:
+          type: boolean
+          description: Apakah konten di-flag sebagai bermasalah.
+        categories:
+          type: object
+          description: Kategori yang terdeteksi.
+          properties:
+            hate:
+              type: boolean
+              description: Hate speech.
+            hate/threatening:
+              type: boolean
+              description: Threatening hate speech.
+            harassment:
+              type: boolean
+              description: Harassment content.
+            harassment/threatening:
+              type: boolean
+              description: Threatening harassment.
+            self-harm:
+              type: boolean
+              description: Self-harm content.
+            self-harm/intent:
+              type: boolean
+              description: Intent to self-harm.
+            self-harm/instructions:
+              type: boolean
+              description: Instructions for self-harm.
+            sexual:
+              type: boolean
+              description: Sexual content.
+            sexual/minors:
+              type: boolean
+              description: Sexual content involving minors.
+            violence:
+              type: boolean
+              description: Violence content.
+            violence/graphic:
+              type: boolean
+              description: Graphic violence.
+          additionalProperties:
+            type: boolean
+        category_scores:
+          type: object
+          description: Confidence scores untuk setiap kategori.
+          properties:
+            hate:
+              type: number
+              minimum: 0
+              maximum: 1
+            hate/threatening:
+              type: number
+              minimum: 0
+              maximum: 1
+            harassment:
+              type: number
+              minimum: 0
+              maximum: 1
+            harassment/threatening:
+              type: number
+              minimum: 0
+              maximum: 1
+            self-harm:
+              type: number
+              minimum: 0
+              maximum: 1
+            self-harm/intent:
+              type: number
+              minimum: 0
+              maximum: 1
+            self-harm/instructions:
+              type: number
+              minimum: 0
+              maximum: 1
+            sexual:
+              type: number
+              minimum: 0
+              maximum: 1
+            sexual/minors:
+              type: number
+              minimum: 0
+              maximum: 1
+            violence:
+              type: number
+              minimum: 0
+              maximum: 1
+            violence/graphic:
+              type: number
+              minimum: 0
+              maximum: 1
+          additionalProperties:
+            type: number
+      required:
+        - flagged
+        - categories
+        - category_scores
+
+    # Usage Schemas
+    UsageResponse:
+      type: object
+      description: Response statistik penggunaan API.
+      properties:
+        object:
+          type: string
+          enum: [usage]
+          description: Tipe object response.
+        data:
+          type: array
+          description: Array data penggunaan per periode.
+          items:
+            $ref: '#/components/schemas/UsageData'
+        total_usage:
+          type: integer
+          description: Total token yang digunakan dalam periode.
+        total_requests:
+          type: integer
+          description: Total request dalam periode.
+        tier_info:
+          $ref: '#/components/schemas/TierInfo'
+        current_usage:
+          $ref: '#/components/schemas/CurrentUsage'
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - object
+        - data
+        - total_usage
+        - total_requests
+
+    UsageData:
+      type: object
+      description: Data penggunaan untuk satu periode.
+      properties:
+        timestamp:
+          type: integer
+          description: Unix timestamp untuk periode.
+        usage:
+          type: integer
+          description: Jumlah token yang digunakan.
+        requests:
+          type: integer
+          description: Jumlah request yang dilakukan.
+        model:
+          type: string
+          description: Model yang digunakan.
+        date:
+          type: string
+          format: date
+          description: Tanggal dalam format YYYY-MM-DD.
+        cost:
+          type: number
+          description: Biaya untuk periode ini.
+      required:
+        - timestamp
+        - usage
+        - requests
+
+    TierInfo:
+      type: object
+      description: Informasi tier user saat ini.
+      properties:
+        current_tier:
+          type: string
+          enum: [Free, Basic, Standard, Pro, Enterprise]
+          description: Tier saat ini.
+        daily_limit:
+          type: integer
+          description: Limit request harian.
+        monthly_limit:
+          type: integer
+          description: Limit token bulanan.
+        daily_token_limit:
+          type: integer
+          description: Limit token harian.
+        features:
+          type: array
+          description: Fitur yang tersedia di tier ini.
+          items:
+            type: string
+      required:
+        - current_tier
+        - daily_limit
+        - monthly_limit
+
+    CurrentUsage:
+      type: object
+      description: Penggunaan saat ini.
+      properties:
+        today:
+          type: integer
+          description: Token yang digunakan hari ini.
+        this_month:
+          type: integer
+          description: Token yang digunakan bulan ini.
+        requests_today:
+          type: integer
+          description: Request yang dilakukan hari ini.
+        requests_this_month:
+          type: integer
+          description: Request yang dilakukan bulan ini.
+        remaining_today:
+          type: integer
+          description: Sisa limit hari ini.
+        remaining_this_month:
+          type: integer
+          description: Sisa limit bulan ini.
+      required:
+        - today
+        - this_month
+        - requests_today
+        - requests_this_month
+
+    # Reasoning Schemas
+    ReasoningRequest:
+      type: object
+      description: Request untuk enhanced reasoning.
+      properties:
+        model:
+          type: string
+          example: nusantara-reasoning
+          description: Model reasoning yang akan digunakan.
+        messages:
+          type: array
+          description: Array pesan conversation.
+          items:
+            $ref: '#/components/schemas/ChatMessage'
+        temperature:
+          type: number
+          minimum: 0
+          maximum: 2
+          default: 0.3
+          description: Kontrol randomness (lebih rendah untuk reasoning).
+        max_tokens:
+          type: integer
+          minimum: 1
+          maximum: 8192
+          default: 1500
+          description: Maksimum token output.
+        stream:
+          type: boolean
+          default: false
+          description: Apakah response akan di-stream.
+        top_p:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 1
+          description: Nucleus sampling threshold.
+        frequency_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+          default: 0
+          description: Penalty untuk token yang sering muncul.
+        presence_penalty:
+          type: number
+          minimum: -2
+          maximum: 2
+          default: 0
+          description: Penalty untuk token yang sudah muncul.
+        response_format:
+          type: object
+          description: Format response yang diinginkan.
+          properties:
+            type:
+              type: string
+              enum: [text, json_object]
+              default: text
+        reasoning_depth:
+          type: string
+          enum: [shallow, medium, deep]
+          default: medium
+          description: Kedalaman reasoning yang diinginkan.
+        show_reasoning_steps:
+          type: boolean
+          default: false
+          description: Tampilkan langkah-langkah reasoning dalam response.
+      required:
+        - messages
+
+    # System Status Schemas
+    SystemStatusResponse:
+      type: object
+      description: Response status sistem.
+      properties:
+        system:
+          type: object
+          description: Informasi sistem secara keseluruhan.
+          properties:
+            status:
+              type: string
+              enum: [operational, degraded, maintenance, outage]
+              description: Status sistem saat ini.
+            version:
+              type: string
+              description: Versi API yang berjalan.
+            uptime:
+              type: number
+              description: Uptime sistem dalam persen.
+            server_time:
+              type: string
+              format: date-time
+              description: Waktu server saat ini.
+            models_available:
+              type: integer
+              description: Jumlah model yang tersedia.
+            total_requests_today:
+              type: integer
+              description: Total request hari ini di seluruh sistem.
+            average_response_time:
+              type: number
+              description: Rata-rata response time dalam ms.
+        your_tier:
+          type: string
+          enum: [Free, Basic, Standard, Pro, Enterprise]
+          description: Tier user saat ini.
+        your_usage:
+          type: object
+          description: Penggunaan user saat ini.
+          properties:
+            requests_today:
+              type: integer
+              description: Request yang dilakukan hari ini.
+            requests_remaining_today:
+              type: integer
+              description: Sisa request hari ini.
+            tokens_today:
+              type: integer
+              description: Token yang digunakan hari ini.
+            tokens_remaining_today:
+              type: integer
+              description: Sisa token hari ini.
+            reset_time:
+              type: string
+              format: date-time
+              description: Waktu reset limit harian.
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - system
+        - your_tier
+
+    # Common Schemas
+    Usage:
+      type: object
+      description: Informasi penggunaan token.
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Jumlah token dalam prompt.
+        completion_tokens:
+          type: integer
+          description: Jumlah token dalam completion.
+        total_tokens:
+          type: integer
+          description: Total token (prompt + completion).
+        cost:
+          type: number
+          description: Biaya untuk request ini.
+      required:
+        - prompt_tokens
+        - completion_tokens
+        - total_tokens
+
+    Metadata:
+      type: object
+      description: Metadata tambahan dari NusantaraAI.
+      properties:
+        creator:
+          type: string
+          enum: [nusantaraai]
+          description: Creator identifier.
+        status:
+          type: boolean
+          description: Status keberhasilan request.
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp response.
+        request_id:
+          type: string
+          description: Unique identifier untuk request.
+        processing_time:
+          type: number
+          description: Waktu processing dalam ms.
+        model_version:
+          type: string
+          description: Versi model yang digunakan.
+        rate_limit_remaining:
+          type: integer
+          description: Sisa rate limit.
+        rate_limit_reset:
+          type: string
+          format: date-time
+          description: Waktu reset rate limit.
+      required:
+        - creator
+        - status
+        - timestamp
+
+    # Error Schemas
+    APIError:
+      type: object
+      description: Error umum dari API.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Pesan error yang dapat dibaca manusia.
+            type:
+              type: string
+              description: Tipe error.
+            code:
+              type: string
+              description: Kode error spesifik.
+            details:
+              type: object
+              description: Detail tambahan error.
+            param:
+              type: string
+              description: Parameter yang menyebabkan error.
+          required:
+            - message
+            - type
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - error
+
+    RateLimitError:
+      type: object
+      description: Error jika terkena rate limit.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Pesan error rate limit.
+            type:
+              type: string
+              enum: [rate_limit_exceeded]
+              description: Tipe error.
+            code:
+              type: string
+              enum: [rpm_exceeded, rpd_exceeded, tpm_exceeded, tpd_exceeded]
+              description: Kode error spesifik.
+            details:
+              type: object
+              description: Detail rate limit.
+              properties:
+                limit:
+                  type: integer
+                  description: Batas rate limit.
+                remaining:
+                  type: integer
+                  description: Sisa rate limit.
+                reset:
+                  type: string
+                  format: date-time
+                  description: Waktu reset rate limit.
+                retry_after:
+                  type: integer
+                  description: Waktu tunggu sebelum retry (detik).
+          required:
+            - message
+            - type
+            - code
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - error
+
+    AuthError:
+      type: object
+      description: Error jika API key salah atau kurang.
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Pesan error autentikasi.
+            type:
+              type: string
+              enum: [auth_error]
+              description: Tipe error.
+            code:
+              type: string
+              enum: [missing_api_key, invalid_api_key, expired_api_key, insufficient_permissions]
+              description: Kode error spesifik.
+          required:
+            - message
+            - type
+            - code
+        _metadata:
+          $ref: '#/components/schemas/Metadata'
+      required:
+        - error
