@@ -1,0 +1,357 @@
+lockVersion: 2.0.0
+id: e8c7e69e-2b89-4cd4-a8a6-cb9ee8cfc01e
+management:
+  docChecksum: c2e014d60b4c175a4068d9a5fad6cec2
+  docVersion: 1.0.0
+  speakeasyVersion: 1.561.0
+  generationVersion: 2.628.0
+  releaseVersion: 0.0.1
+  configChecksum: 41e5060a72f088e5a9a033d375b5f1e3
+  repoURL: https://github.com/ErRickow/nusaai.git
+  installationURL: https://github.com/ErRickow/nusaai
+features:
+  typescript:
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.11
+    core: 3.21.11
+    defaultEnabledRetries: 0.1.0
+    enumUnions: 0.1.0
+    envVarSecurityUsage: 0.1.2
+    globalSecurity: 2.82.13
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
+    globalServerURLs: 2.82.5
+    mcpServer: 0.9.2
+    methodArguments: 0.1.2
+    nullables: 0.1.1
+    responseFormat: 0.2.3
+    retries: 2.83.0
+    sdkHooks: 0.3.0
+    unions: 2.85.9
+generatedFiles:
+  - .gitattributes
+  - .npmignore
+  - FUNCTIONS.md
+  - RUNTIMES.md
+  - USAGE.md
+  - docs/lib/utils/retryconfig.md
+  - docs/models/autherrorerror.md
+  - docs/models/badrequesterrordetails.md
+  - docs/models/badrequesterrorerror.md
+  - docs/models/chatcompletionsrequest.md
+  - docs/models/chatcompletionsrequestmessage.md
+  - docs/models/chatcompletionsrequestresponseformat.md
+  - docs/models/chatcompletionsrequestrole.md
+  - docs/models/chatcompletionsrequesttype.md
+  - docs/models/chatcompletionsresponse.md
+  - docs/models/chatcompletionsresponsechoice.md
+  - docs/models/chatcompletionsresponsemessage.md
+  - docs/models/chatcompletionsresponseusage.md
+  - docs/models/code.md
+  - docs/models/currentusage.md
+  - docs/models/embeddingsrequest.md
+  - docs/models/embeddingsrequestinput.md
+  - docs/models/embeddingsresponse.md
+  - docs/models/embeddingsresponsedata.md
+  - docs/models/embeddingsresponseusage.md
+  - docs/models/encodingformat.md
+  - docs/models/errors/autherror.md
+  - docs/models/errors/badrequesterror.md
+  - docs/models/errors/ratelimiterror.md
+  - docs/models/errors/servererror.md
+  - docs/models/functiont.md
+  - docs/models/limits.md
+  - docs/models/metadata.md
+  - docs/models/modelinfo.md
+  - docs/models/modelsresponse.md
+  - docs/models/moderationresult.md
+  - docs/models/moderationsrequest.md
+  - docs/models/moderationsrequestinput.md
+  - docs/models/moderationsresponse.md
+  - docs/models/operations/usagerequest.md
+  - docs/models/permission.md
+  - docs/models/ratelimiterrordetails.md
+  - docs/models/ratelimiterrorerror.md
+  - docs/models/reasoningrequest.md
+  - docs/models/reasoningrequestmessage.md
+  - docs/models/reasoningrequestresponseformat.md
+  - docs/models/reasoningrequestrole.md
+  - docs/models/reasoningrequesttype.md
+  - docs/models/security.md
+  - docs/models/servererrorerror.md
+  - docs/models/system.md
+  - docs/models/systemstatusresponse.md
+  - docs/models/textcompletionresponse.md
+  - docs/models/textcompletionresponsechoice.md
+  - docs/models/textcompletionresponseusage.md
+  - docs/models/textcompletionsrequest.md
+  - docs/models/textcompletionsrequestresponseformat.md
+  - docs/models/textcompletionsrequesttype.md
+  - docs/models/tierinfo.md
+  - docs/models/tool.md
+  - docs/models/toolcall.md
+  - docs/models/usageresponse.md
+  - docs/models/usageresponsedata.md
+  - docs/models/yourusage.md
+  - docs/sdks/chat/README.md
+  - docs/sdks/completions/README.md
+  - docs/sdks/embeddings/README.md
+  - docs/sdks/models/README.md
+  - docs/sdks/moderations/README.md
+  - docs/sdks/reasoning/README.md
+  - docs/sdks/sdk/README.md
+  - docs/sdks/system/README.md
+  - docs/sdks/usage/README.md
+  - docs/types/rfcdate.md
+  - eslint.config.mjs
+  - jsr.json
+  - package.json
+  - src/core.ts
+  - src/funcs/chatChatCompletions.ts
+  - src/funcs/completionsTextCompletions.ts
+  - src/funcs/embeddingsEmbeddings.ts
+  - src/funcs/modelsListModels.ts
+  - src/funcs/moderationsModerations.ts
+  - src/funcs/reasoningReasoning.ts
+  - src/funcs/systemSystemStatus.ts
+  - src/funcs/usageUsage.ts
+  - src/hooks/hooks.ts
+  - src/hooks/index.ts
+  - src/hooks/types.ts
+  - src/index.ts
+  - src/lib/base64.ts
+  - src/lib/config.ts
+  - src/lib/dlv.ts
+  - src/lib/encodings.ts
+  - src/lib/files.ts
+  - src/lib/http.ts
+  - src/lib/is-plain-object.ts
+  - src/lib/logger.ts
+  - src/lib/matchers.ts
+  - src/lib/primitives.ts
+  - src/lib/retries.ts
+  - src/lib/schemas.ts
+  - src/lib/sdks.ts
+  - src/lib/security.ts
+  - src/lib/url.ts
+  - src/mcp-server/build.mts
+  - src/mcp-server/cli.ts
+  - src/mcp-server/cli/start/command.ts
+  - src/mcp-server/cli/start/impl.ts
+  - src/mcp-server/console-logger.ts
+  - src/mcp-server/extensions.ts
+  - src/mcp-server/mcp-server.ts
+  - src/mcp-server/prompts.ts
+  - src/mcp-server/resources.ts
+  - src/mcp-server/scopes.ts
+  - src/mcp-server/server.ts
+  - src/mcp-server/shared.ts
+  - src/mcp-server/tools.ts
+  - src/mcp-server/tools/chatChatCompletions.ts
+  - src/mcp-server/tools/completionsTextCompletions.ts
+  - src/mcp-server/tools/embeddingsEmbeddings.ts
+  - src/mcp-server/tools/modelsListModels.ts
+  - src/mcp-server/tools/moderationsModerations.ts
+  - src/mcp-server/tools/reasoningReasoning.ts
+  - src/mcp-server/tools/systemSystemStatus.ts
+  - src/mcp-server/tools/usageUsage.ts
+  - src/models/autherror.ts
+  - src/models/badrequesterror.ts
+  - src/models/chatcompletionsrequest.ts
+  - src/models/chatcompletionsresponse.ts
+  - src/models/embeddingsrequest.ts
+  - src/models/embeddingsresponse.ts
+  - src/models/errors/autherror.ts
+  - src/models/errors/badrequesterror.ts
+  - src/models/errors/httpclienterrors.ts
+  - src/models/errors/index.ts
+  - src/models/errors/ratelimiterror.ts
+  - src/models/errors/responsevalidationerror.ts
+  - src/models/errors/sdkdefaulterror.ts
+  - src/models/errors/sdkerror.ts
+  - src/models/errors/sdkvalidationerror.ts
+  - src/models/errors/servererror.ts
+  - src/models/index.ts
+  - src/models/metadata.ts
+  - src/models/modelinfo.ts
+  - src/models/modelsresponse.ts
+  - src/models/moderationresult.ts
+  - src/models/moderationsrequest.ts
+  - src/models/moderationsresponse.ts
+  - src/models/operations/index.ts
+  - src/models/operations/usage.ts
+  - src/models/ratelimiterror.ts
+  - src/models/reasoningrequest.ts
+  - src/models/security.ts
+  - src/models/servererror.ts
+  - src/models/systemstatusresponse.ts
+  - src/models/textcompletionresponse.ts
+  - src/models/textcompletionsrequest.ts
+  - src/models/usageresponse.ts
+  - src/sdk/chat.ts
+  - src/sdk/completions.ts
+  - src/sdk/embeddings.ts
+  - src/sdk/index.ts
+  - src/sdk/models.ts
+  - src/sdk/moderations.ts
+  - src/sdk/reasoning.ts
+  - src/sdk/sdk.ts
+  - src/sdk/system.ts
+  - src/sdk/usage.ts
+  - src/types/async.ts
+  - src/types/blobs.ts
+  - src/types/constdatetime.ts
+  - src/types/enums.ts
+  - src/types/fp.ts
+  - src/types/index.ts
+  - src/types/operations.ts
+  - src/types/rfcdate.ts
+  - src/types/streams.ts
+  - tsconfig.json
+examples:
+  chatCompletions:
+    simple:
+      requestBody:
+        application/json: {"model": "nusantara-base", "messages": [{"role": "user", "content": "Apa itu NusantaraAI?"}], "temperature": 0.7, "max_tokens": 1000, "stream": false, "n": 1, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0, "tool_choice": "auto", "web_search": false}
+      responses:
+        "200":
+          application/json: {"id": "chatcmpl-xyz", "object": "chat.completion", "created": 1717950000, "model": "nusantara-base", "choices": [{"message": {"role": "assistant", "content": "NusantaraAI adalah platform AI lokal."}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 12, "completion_tokens": 5, "total_tokens": 17}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "400":
+          application/json: {"error": {"message": "Invalid request format or missing required parameters.", "type": "bad_request", "code": "invalid_request_format"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "429":
+          application/json: {"error": {"message": "Too many requests. Limit: 10 RPM. Please try again later.", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "500":
+          application/json: {"error": {"message": "Internal server error. Please try again later.", "type": "server_error", "code": "internal_error"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+    advanced:
+      requestBody:
+        application/json: {"model": "nusantara-base", "messages": [{"role": "system", "content": "Kamu adalah asisten AI yang membantu."}, {"role": "user", "content": "Jelaskan tentang AI dalam bahasa Indonesia."}], "temperature": 0.7, "max_tokens": 1000, "stream": false, "n": 1, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0, "tool_choice": "auto", "web_search": false}
+      responses:
+        "200":
+          application/json: {"id": "chatcmpl-xyz", "object": "chat.completion", "created": 1717950000, "model": "nusantara-base", "choices": [{"message": {"role": "assistant", "content": "NusantaraAI adalah platform AI lokal."}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 12, "completion_tokens": 5, "total_tokens": 17}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "400":
+          application/json: {"error": {"message": "Invalid request format or missing required parameters.", "type": "bad_request", "code": "invalid_request_format"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "429":
+          application/json: {"error": {"message": "Too many requests. Limit: 10 RPM. Please try again later.", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "500":
+          application/json: {"error": {"message": "Internal server error. Please try again later.", "type": "server_error", "code": "internal_error"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+    success:
+      requestBody:
+        application/json: {"model": "nusantara-base", "messages": [{"role": "user", "content": "Apa itu NusantaraAI?"}], "temperature": 0.7, "max_tokens": 1000, "stream": false, "n": 1, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0, "tool_choice": "auto", "web_search": false}
+      responses:
+        "200":
+          application/json: {"id": "chatcmpl-xyz", "object": "chat.completion", "created": 1717950000, "model": "nusantara-base", "choices": [{"index": 0, "message": {"role": "assistant", "content": "NusantaraAI adalah platform AI lokal."}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 12, "completion_tokens": 5, "total_tokens": 17}}
+    auth:
+      requestBody:
+        application/json: {"model": "nusantara-base", "messages": [{"role": "user", "content": "Apa itu NusantaraAI?"}], "temperature": 0.7, "max_tokens": 1000, "stream": false, "n": 1, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0, "tool_choice": "auto", "web_search": false}
+      responses:
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "missing_api_key"}, "_metadata": {"creator": "nusantaraai", "status": false, "timestamp": "2025-06-09T16:00:00Z"}}
+    limit:
+      requestBody:
+        application/json: {"model": "nusantara-base", "messages": [{"role": "user", "content": "Apa itu NusantaraAI?"}], "temperature": 0.7, "max_tokens": 1000, "stream": false, "n": 1, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0, "tool_choice": "auto", "web_search": false}
+      responses:
+        "429":
+          application/json: {"error": {"message": "Too many requests. Limit: 10 RPM. Please try again later.", "type": "rate_limit_exceeded", "code": "rpm_exceeded", "details": {"limit": 10, "remaining": 0, "reset": "2025-06-09T17:00:00Z", "retry_after": 60}}, "_metadata": {"creator": "nusantaraai", "status": false, "timestamp": "2025-06-09T16:00:00Z"}}
+  textCompletions:
+    simple:
+      requestBody:
+        application/json: {"model": "nusantara-base", "prompt": "Sebutkan 3 manfaat AI:", "temperature": 0.7, "max_tokens": 1000, "stream": false, "n": 1, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}
+      responses:
+        "200":
+          application/json: {"object": "text_completion", "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "400":
+          application/json: {"error": {"message": "Invalid request format or missing required parameters.", "type": "bad_request", "code": "invalid_request_format"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "429":
+          application/json: {"error": {"message": "Too many requests. Limit: 10 RPM. Please try again later.", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "500":
+          application/json: {"error": {"message": "Internal server error. Please try again later.", "type": "server_error", "code": "internal_error"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+  listModels:
+    speakeasy-default-list-models:
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"id": "nusantara-base", "object": "model", "owned_by": "nusantaraai", "description": "Model dasar NusantaraAI", "capabilities": ["chat", "completion", "reasoning"]}], "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+  embeddings:
+    simple:
+      requestBody:
+        application/json: {"model": "nusantara-embeddings", "input": "contoh kalimat", "encoding_format": "float"}
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"object": "embedding", "embedding": [0.12, 0.34, 0.56], "index": 0}], "model": "nusantara-embeddings", "usage": {"prompt_tokens": 3, "total_tokens": 3}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "400":
+          application/json: {"error": {"message": "Invalid request format or missing required parameters.", "type": "bad_request", "code": "invalid_request_format"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "429":
+          application/json: {"error": {"message": "Too many requests. Limit: 10 RPM. Please try again later.", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "500":
+          application/json: {"error": {"message": "Internal server error. Please try again later.", "type": "server_error", "code": "internal_error"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+    multiple:
+      requestBody:
+        application/json: {"model": "nusa-embedding-0001", "input": ["kalimat pertama", "kalimat kedua"], "encoding_format": "float"}
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"object": "embedding", "embedding": [0.12, 0.34, 0.56], "index": 0}], "model": "nusantara-embeddings", "usage": {"prompt_tokens": 3, "total_tokens": 3}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "400":
+          application/json: {"error": {"message": "Invalid request format or missing required parameters.", "type": "bad_request", "code": "invalid_request_format"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "429":
+          application/json: {"error": {"message": "Too many requests. Limit: 10 RPM. Please try again later.", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "500":
+          application/json: {"error": {"message": "Internal server error. Please try again later.", "type": "server_error", "code": "internal_error"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+    success:
+      requestBody:
+        application/json: {"model": "nusantara-embeddings", "input": "contoh kalimat", "encoding_format": "float"}
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"object": "embedding", "embedding": [0.12, 0.34, 0.56], "index": 0}], "model": "nusantara-embeddings", "usage": {"prompt_tokens": 3, "total_tokens": 3}}
+  moderations:
+    simple:
+      requestBody:
+        application/json: {"input": "Ini adalah teks yang akan dimoderasi", "model": "text-moderation-latest"}
+      responses:
+        "200":
+          application/json: {"_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "400":
+          application/json: {"error": {"message": "Invalid request format or missing required parameters.", "type": "bad_request", "code": "invalid_request_format"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "500":
+          application/json: {"error": {"message": "Internal server error. Please try again later.", "type": "server_error", "code": "internal_error"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+  usage:
+    speakeasy-default-usage:
+      responses:
+        "200":
+          application/json: {"object": "usage", "tier_info": {"current_tier": "Free"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+  reasoning:
+    simple:
+      requestBody:
+        application/json: {"model": "nusantara-base", "messages": [{"role": "user", "content": "Jelaskan langkah-langkah menyelesaikan masalah matematika kompleks."}], "temperature": 0.7, "max_tokens": 1500, "stream": false, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}
+      responses:
+        "200":
+          application/json: {"id": "chatcmpl-xyz", "object": "chat.completion", "created": 1717950000, "model": "nusantara-base", "choices": [{"message": {"role": "assistant", "content": "NusantaraAI adalah platform AI lokal."}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 12, "completion_tokens": 5, "total_tokens": 17}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "400":
+          application/json: {"error": {"message": "Invalid request format or missing required parameters.", "type": "bad_request", "code": "invalid_request_format"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "500":
+          application/json: {"error": {"message": "Internal server error. Please try again later.", "type": "server_error", "code": "internal_error"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+  systemStatus:
+    speakeasy-default-system-status:
+      responses:
+        "200":
+          application/json: {"system": {"status": "operational", "version": "1.0.0"}, "your_tier": "Free", "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+        "401":
+          application/json: {"error": {"message": "API key is missing. Please provide your API key in the 'Authorization' header as 'Bearer <API_KEY>'.", "type": "auth_error", "code": "invalid_api_key"}, "_metadata": {"creator": "nusantaraai", "status": true, "timestamp": "2025-06-09T16:00:00Z", "request_id": "req_abc123", "processing_time": 1.234}}
+examplesVersion: 1.0.2
+generatedTests: {}
