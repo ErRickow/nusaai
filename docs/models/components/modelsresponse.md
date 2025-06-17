@@ -1,0 +1,39 @@
+# ModelsResponse
+
+## Example Usage
+
+```typescript
+import { ModelsResponse } from "neosantara-ai/models/components";
+
+let value: ModelsResponse = {
+  object: "list",
+  data: [
+    {
+      id: "nusantara-base",
+      object: "model",
+      ownedBy: "nusantaraai",
+      description: "Model dasar NusantaraAI",
+      capabilities: [
+        "chat",
+        "completion",
+        "reasoning",
+      ],
+    },
+  ],
+  metadata: {
+    creator: "nusantaraai",
+    status: true,
+    timestamp: new Date("2025-06-09T16:00:00Z"),
+    requestId: "req_abc123",
+    processingTime: 1.234,
+  },
+};
+```
+
+## Fields
+
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    | Example                                                        |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `object`                                                       | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            | list                                                           |
+| `data`                                                         | [components.ModelInfo](../../models/components/modelinfo.md)[] | :heavy_minus_sign:                                             | N/A                                                            |                                                                |
+| `metadata`                                                     | [components.Metadata](../../models/components/metadata.md)     | :heavy_minus_sign:                                             | Metadata response dari NusantaraAI.                            |                                                                |
