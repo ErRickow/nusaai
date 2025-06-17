@@ -2,7 +2,7 @@ configVersion: 2.0.0
 generation:
   devContainers:
     enabled: false
-  sdkClassName: nusa
+  sdkClassName: neosantara
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
@@ -24,14 +24,14 @@ typescript:
     devDependencies: {}
     peerDependencies: {}
   additionalPackageJSON: {}
-  author: NusaXyz
+  author: NeosantaraXYZ
   clientServerStatusCodesAsErrors: true
   defaultErrorName: SDKError
   enableCustomCodeRegions: true
   enableMCPServer: false
   enableReactQuery: false
   enumFormat: union
-  envVarPrefix: NUSA_XYZ
+  envVarPrefix: NAI
   flattenGlobalSecurity: true
   flatteningOrder: body-first
   imports:
@@ -48,7 +48,7 @@ typescript:
   methodArguments: infer-optional-args
   moduleFormat: commonjs
   outputModelSuffix: output
-  packageName: 'nusaai'
+  packageName: 'neosantara-ai'
   responseFormat: flat
   templateVersion: v2
   useIndexModules: true
