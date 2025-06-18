@@ -1,0 +1,4 @@
+configured_endpoints: 8
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/nusa-ai%2Fneosantara-b805945828345727f463faaa3a5d1cfb53013244f01e5a8b2c169b175125ad83.yml
+openapi_spec_hash: 38d11b76f7b3cff37b94c31f8bdc25c2
+config_hash: d2db5128d8941e971973f1d58d806dba
