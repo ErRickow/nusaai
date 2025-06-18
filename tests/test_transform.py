@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from neosantara._types import NOT_GIVEN, Base64FileInput
-from neosantara._utils import (
+from neosantaraai._types import NOT_GIVEN, Base64FileInput
+from neosantaraai._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from neosantara._compat import PYDANTIC_V2
-from neosantara._models import BaseModel
+from neosantaraai._compat import PYDANTIC_V2
+from neosantaraai._models import BaseModel
 
 _T = TypeVar("_T")
 

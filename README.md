@@ -1,6 +1,6 @@
 # Neosantara Python API library
 
-[![PyPI version](<https://img.shields.io/pypi/v/neosantara.svg?label=pypi%20(stable)>)](https://pypi.org/project/neosantara/)
+[![PyPI version](<https://img.shields.io/pypi/v/neosantaraai.svg?label=pypi%20(stable)>)](https://pypi.org/project/neosantaraai/)
 
 The Neosantara Python library provides convenient access to the Neosantara REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/stainless-sdks/neosantara-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre neosantara`
+> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre neosantaraai`
 
 ## Usage
 
@@ -28,10 +28,10 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from neosantara import Neosantara
+from neosantaraai import Neosantara
 
 client = Neosantara(
-    api_key=os.environ.get("NEOSANTARA_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("NAI_API_KEY"),  # This is the default and can be omitted
 )
 
 chat_completions_response = client.chat.create_completion(
@@ -48,7 +48,7 @@ print(chat_completions_response.id)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `NEOSANTARA_API_KEY="My API Key"` to your `.env` file
+to add `NAI_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
@@ -58,10 +58,10 @@ Simply import `AsyncNeosantara` instead of `Neosantara` and use `await` with eac
 ```python
 import os
 import asyncio
-from neosantara import AsyncNeosantara
+from neosantaraai import AsyncNeosantara
 
 client = AsyncNeosantara(
-    api_key=os.environ.get("NEOSANTARA_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("NAI_API_KEY"),  # This is the default and can be omitted
 )
 
 
@@ -97,7 +97,7 @@ Typed requests and responses provide autocomplete and documentation within your 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from neosantara import Neosantara
+from neosantaraai import Neosantara
 
 client = Neosantara()
 
@@ -116,16 +116,16 @@ print(chat_completions_response.response_format)
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `neosantara.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `neosantaraai.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `neosantara.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `neosantaraai.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `neosantara.APIError`.
+All errors inherit from `neosantaraai.APIError`.
 
 ```python
-import neosantara
-from neosantara import Neosantara
+import neosantaraai
+from neosantaraai import Neosantara
 
 client = Neosantara()
 
@@ -139,12 +139,12 @@ try:
         ],
         model="nusantara-base",
     )
-except neosantara.APIConnectionError as e:
+except neosantaraai.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except neosantara.RateLimitError as e:
+except neosantaraai.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except neosantara.APIStatusError as e:
+except neosantaraai.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -172,7 +172,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from neosantara import Neosantara
+from neosantaraai import Neosantara
 
 # Configure the default for all requests:
 client = Neosantara(
@@ -198,7 +198,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from neosantara import Neosantara
+from neosantaraai import Neosantara
 
 # Configure the default for all requests:
 client = Neosantara(
@@ -258,7 +258,7 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from neosantara import Neosantara
+from neosantaraai import Neosantara
 
 client = Neosantara()
 response = client.chat.with_raw_response.create_completion(
@@ -274,9 +274,9 @@ chat = response.parse()  # get the object that `chat.create_completion()` would 
 print(chat.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/neosantara-python/tree/main/src/neosantara/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/neosantara-python/tree/main/src/neosantaraai/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/neosantara-python/tree/main/src/neosantara/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/neosantara-python/tree/main/src/neosantaraai/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -346,7 +346,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from neosantara import Neosantara, DefaultHttpxClient
+from neosantaraai import Neosantara, DefaultHttpxClient
 
 client = Neosantara(
     # Or use the `NEOSANTARA_BASE_URL` env var
@@ -369,7 +369,7 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from neosantara import Neosantara
+from neosantaraai import Neosantara
 
 with Neosantara() as client:
   # make requests here
@@ -397,8 +397,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import neosantara
-print(neosantara.__version__)
+import neosantaraai
+print(neosantaraai.__version__)
 ```
 
 ## Requirements

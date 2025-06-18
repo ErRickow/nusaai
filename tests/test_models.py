@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from neosantara._utils import PropertyInfo
-from neosantara._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from neosantara._models import BaseModel, construct_type
+from neosantaraai._utils import PropertyInfo
+from neosantaraai._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from neosantaraai._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

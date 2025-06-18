@@ -6,8 +6,8 @@ import httpx
 import pytest
 import pydantic
 
-from neosantara import BaseModel, Neosantara, AsyncNeosantara
-from neosantara._response import (
+from neosantaraai import BaseModel, Neosantara, AsyncNeosantara
+from neosantaraai._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -15,8 +15,8 @@ from neosantara._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from neosantara._streaming import Stream
-from neosantara._base_client import FinalRequestOptions
+from neosantaraai._streaming import Stream
+from neosantaraai._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]): ...
@@ -37,7 +37,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'neosantara._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'neosantaraai._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -68,7 +68,7 @@ def test_response_parse_mismatched_basemodel(client: Neosantara) -> None:
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from neosantara import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from neosantaraai import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
@@ -86,7 +86,7 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncNeos
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from neosantara import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from neosantaraai import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 

@@ -21,11 +21,11 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from neosantara import Neosantara, AsyncNeosantara, APIResponseValidationError
-from neosantara._types import Omit
-from neosantara._models import BaseModel, FinalRequestOptions
-from neosantara._exceptions import APIStatusError, APITimeoutError, NeosantaraError, APIResponseValidationError
-from neosantara._base_client import (
+from neosantaraai import Neosantara, AsyncNeosantara, APIResponseValidationError
+from neosantaraai._types import Omit
+from neosantaraai._models import BaseModel, FinalRequestOptions
+from neosantaraai._exceptions import APIStatusError, APITimeoutError, NeosantaraError, APIResponseValidationError
+from neosantaraai._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -231,10 +231,10 @@ class TestNeosantara:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "neosantara/_legacy_response.py",
-                        "neosantara/_response.py",
+                        "neosantaraai/_legacy_response.py",
+                        "neosantaraai/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "neosantara/_compat.py",
+                        "neosantaraai/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -341,7 +341,7 @@ class TestNeosantara:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(NeosantaraError):
-            with update_env(**{"NEOSANTARA_API_KEY": Omit()}):
+            with update_env(**{"NAI_API_KEY": Omit()}):
                 client2 = Neosantara(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
@@ -718,7 +718,7 @@ class TestNeosantara:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Neosantara) -> None:
         respx_mock.post("/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -736,7 +736,7 @@ class TestNeosantara:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Neosantara) -> None:
         respx_mock.post("/chat/completions").mock(return_value=httpx.Response(500))
@@ -754,7 +754,7 @@ class TestNeosantara:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -793,7 +793,7 @@ class TestNeosantara:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
         self, client: Neosantara, failures_before_success: int, respx_mock: MockRouter
@@ -825,7 +825,7 @@ class TestNeosantara:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: Neosantara, failures_before_success: int, respx_mock: MockRouter
@@ -1081,10 +1081,10 @@ class TestAsyncNeosantara:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "neosantara/_legacy_response.py",
-                        "neosantara/_response.py",
+                        "neosantaraai/_legacy_response.py",
+                        "neosantaraai/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "neosantara/_compat.py",
+                        "neosantaraai/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1191,7 +1191,7 @@ class TestAsyncNeosantara:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(NeosantaraError):
-            with update_env(**{"NEOSANTARA_API_KEY": Omit()}):
+            with update_env(**{"NAI_API_KEY": Omit()}):
                 client2 = AsyncNeosantara(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
@@ -1574,7 +1574,7 @@ class TestAsyncNeosantara:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncNeosantara
@@ -1594,7 +1594,7 @@ class TestAsyncNeosantara:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncNeosantara
@@ -1614,7 +1614,7 @@ class TestAsyncNeosantara:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
@@ -1654,7 +1654,7 @@ class TestAsyncNeosantara:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
@@ -1687,7 +1687,7 @@ class TestAsyncNeosantara:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("neosantara._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("neosantaraai._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
@@ -1730,8 +1730,8 @@ class TestAsyncNeosantara:
         import nest_asyncio
         import threading
 
-        from neosantara._utils import asyncify
-        from neosantara._base_client import get_platform
+        from neosantaraai._utils import asyncify
+        from neosantaraai._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()

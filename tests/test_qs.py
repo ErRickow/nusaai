@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 import pytest
 
-from neosantara._qs import Querystring, stringify
+from neosantaraai._qs import Querystring, stringify
 
 
 def test_empty() -> None:

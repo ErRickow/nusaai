@@ -8,8 +8,8 @@ from typing import Any, TypeVar, Iterator, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from neosantara._types import Omit, NoneType
-from neosantara._utils import (
+from neosantaraai._types import Omit, NoneType
+from neosantaraai._utils import (
     is_dict,
     is_list,
     is_list_type,
@@ -18,8 +18,8 @@ from neosantara._utils import (
     is_annotated_type,
     is_type_alias_type,
 )
-from neosantara._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from neosantara._models import BaseModel
+from neosantaraai._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from neosantaraai._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 

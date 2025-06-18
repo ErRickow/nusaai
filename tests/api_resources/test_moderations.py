@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from neosantara import Neosantara, AsyncNeosantara
 from tests.utils import assert_matches_type
-from neosantara.types import ModerationCreateCheckResponse
+from neosantaraai import Neosantara, AsyncNeosantara
+from neosantaraai.types import ModerationCreateCheckResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -17,7 +17,6 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestModerations:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
     @parametrize
     def test_method_create_check(self, client: Neosantara) -> None:
         moderation = client.moderations.create_check(
@@ -25,7 +24,6 @@ class TestModerations:
         )
         assert_matches_type(ModerationCreateCheckResponse, moderation, path=["response"])
 
-    @pytest.mark.skip()
     @parametrize
     def test_method_create_check_with_all_params(self, client: Neosantara) -> None:
         moderation = client.moderations.create_check(
@@ -34,7 +32,6 @@ class TestModerations:
         )
         assert_matches_type(ModerationCreateCheckResponse, moderation, path=["response"])
 
-    @pytest.mark.skip()
     @parametrize
     def test_raw_response_create_check(self, client: Neosantara) -> None:
         response = client.moderations.with_raw_response.create_check(
@@ -46,7 +43,6 @@ class TestModerations:
         moderation = response.parse()
         assert_matches_type(ModerationCreateCheckResponse, moderation, path=["response"])
 
-    @pytest.mark.skip()
     @parametrize
     def test_streaming_response_create_check(self, client: Neosantara) -> None:
         with client.moderations.with_streaming_response.create_check(
@@ -64,7 +60,6 @@ class TestModerations:
 class TestAsyncModerations:
     parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
     @parametrize
     async def test_method_create_check(self, async_client: AsyncNeosantara) -> None:
         moderation = await async_client.moderations.create_check(
@@ -72,7 +67,6 @@ class TestAsyncModerations:
         )
         assert_matches_type(ModerationCreateCheckResponse, moderation, path=["response"])
 
-    @pytest.mark.skip()
     @parametrize
     async def test_method_create_check_with_all_params(self, async_client: AsyncNeosantara) -> None:
         moderation = await async_client.moderations.create_check(
@@ -81,7 +75,6 @@ class TestAsyncModerations:
         )
         assert_matches_type(ModerationCreateCheckResponse, moderation, path=["response"])
 
-    @pytest.mark.skip()
     @parametrize
     async def test_raw_response_create_check(self, async_client: AsyncNeosantara) -> None:
         response = await async_client.moderations.with_raw_response.create_check(
@@ -93,7 +86,6 @@ class TestAsyncModerations:
         moderation = await response.parse()
         assert_matches_type(ModerationCreateCheckResponse, moderation, path=["response"])
 
-    @pytest.mark.skip()
     @parametrize
     async def test_streaming_response_create_check(self, async_client: AsyncNeosantara) -> None:
         async with async_client.moderations.with_streaming_response.create_check(

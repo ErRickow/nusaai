@@ -82,13 +82,13 @@ class Neosantara(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Neosantara client instance.
 
-        This automatically infers the `api_key` argument from the `NEOSANTARA_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `NAI_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("NEOSANTARA_API_KEY")
+            api_key = os.environ.get("NAI_API_KEY")
         if api_key is None:
             raise NeosantaraError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the NEOSANTARA_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the NAI_API_KEY environment variable"
             )
         self.api_key = api_key
 
@@ -264,13 +264,13 @@ class AsyncNeosantara(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncNeosantara client instance.
 
-        This automatically infers the `api_key` argument from the `NEOSANTARA_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `NAI_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("NEOSANTARA_API_KEY")
+            api_key = os.environ.get("NAI_API_KEY")
         if api_key is None:
             raise NeosantaraError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the NEOSANTARA_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the NAI_API_KEY environment variable"
             )
         self.api_key = api_key
 

@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from neosantara import Neosantara, AsyncNeosantara
-from neosantara._streaming import Stream, AsyncStream, ServerSentEvent
+from neosantaraai import Neosantara, AsyncNeosantara
+from neosantaraai._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio
