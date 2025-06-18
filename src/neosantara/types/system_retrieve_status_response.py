@@ -4,8 +4,6 @@ from typing import Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
 from .metadata import Metadata
 from .current_usage import CurrentUsage
@@ -28,7 +26,7 @@ class System(BaseModel):
 
 
 class SystemRetrieveStatusResponse(BaseModel):
-    api_metadata: Optional[Metadata] = FieldInfo(alias="_metadata", default=None)
+    info_metadata: Optional[Metadata] = None
 
     system: Optional[System] = None
 

@@ -4,8 +4,6 @@ from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
 from .metadata import Metadata
 from .current_usage import CurrentUsage
@@ -50,11 +48,11 @@ class TierInfo(BaseModel):
 
 
 class UsageRetrieveResponse(BaseModel):
-    api_metadata: Optional[Metadata] = FieldInfo(alias="_metadata", default=None)
-
     current_usage: Optional[CurrentUsage] = None
 
     data: Optional[List[Data]] = None
+
+    info_metadata: Optional[Metadata] = None
 
     object: Optional[str] = None
 

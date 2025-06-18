@@ -72,7 +72,7 @@ class Result(BaseModel):
 class ModerationCreateCheckResponse(BaseModel):
     id: Optional[str] = None
 
-    api_metadata: Optional[Metadata] = FieldInfo(alias="_metadata", default=None)
+    info_metadata: Optional[Metadata] = None
 
     model: Optional[str] = None
 

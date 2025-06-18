@@ -3,8 +3,6 @@
 import builtins
 from typing import List, Optional
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
 from .metadata import Metadata
 
@@ -54,8 +52,8 @@ class Data(BaseModel):
 
 
 class ModelListResponse(BaseModel):
-    api_metadata: Optional[Metadata] = FieldInfo(alias="_metadata", default=None)
-
     data: Optional[List[Data]] = None
+
+    info_metadata: Optional[Metadata] = None
 
     object: Optional[str] = None

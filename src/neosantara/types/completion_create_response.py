@@ -3,8 +3,6 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from pydantic import Field as FieldInfo
-
 from .usage import Usage
 from .._models import BaseModel
 from .metadata import Metadata
@@ -25,11 +23,11 @@ class Choice(BaseModel):
 class CompletionCreateResponse(BaseModel):
     id: Optional[str] = None
 
-    api_metadata: Optional[Metadata] = FieldInfo(alias="_metadata", default=None)
-
     choices: Optional[List[Choice]] = None
 
     created: Optional[int] = None
+
+    info_metadata: Optional[Metadata] = None
 
     model: Optional[str] = None
 
