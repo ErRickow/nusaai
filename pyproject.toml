@@ -34,8 +34,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/stainless-sdks/neosantara-python"
-Repository = "https://github.com/stainless-sdks/neosantara-python"
+Homepage = "https://github.com/ErRickow/nusaai"
+Repository = "https://github.com/ErRickow/nusaai"
 
 
 [tool.rye]
@@ -122,7 +122,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/stainless-sdks/neosantara-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/ErRickow/nusaai/tree/speakeasy-sdk-regen-1749741977/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

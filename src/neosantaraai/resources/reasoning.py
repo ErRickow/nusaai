@@ -32,7 +32,7 @@ class ReasoningResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/neosantara-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/ErRickow/nusaai#accessing-raw-response-data-eg-headers
         """
         return ReasoningResourceWithRawResponse(self)
 
@@ -41,7 +41,7 @@ class ReasoningResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/neosantara-python#with_streaming_response
+        For more information, see https://www.github.com/ErRickow/nusaai#with_streaming_response
         """
         return ReasoningResourceWithStreamingResponse(self)
 
@@ -106,7 +106,7 @@ class AsyncReasoningResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/neosantara-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/ErRickow/nusaai#accessing-raw-response-data-eg-headers
         """
         return AsyncReasoningResourceWithRawResponse(self)
 
@@ -115,7 +115,7 @@ class AsyncReasoningResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/neosantara-python#with_streaming_response
+        For more information, see https://www.github.com/ErRickow/nusaai#with_streaming_response
         """
         return AsyncReasoningResourceWithStreamingResponse(self)
 
