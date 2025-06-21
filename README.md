@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/ErRickow/nusaai#speakeasy-sdk-regen-1749741
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre neosantaraai`
+> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install --pre neosantaraai`
 
 ## Usage
 
