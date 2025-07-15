@@ -98,7 +98,6 @@ pip install 'neosantaraai[aiohttp] @ git+ssh://git@github.com/ErRickow/nusaai#sp
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from neosantaraai import DefaultAioHttpClient
 from neosantaraai import AsyncNeosantara
@@ -106,7 +105,7 @@ from neosantaraai import AsyncNeosantara
 
 async def main() -> None:
     async with AsyncNeosantara(
-        api_key=os.environ.get("NAI_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         chat_completions_response = await client.chat.create_completion(
