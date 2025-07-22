@@ -1,0 +1,297 @@
+lockVersion: 2.0.0
+id: 9e2e265d-a3b2-4bdc-88b0-86d532a21b84
+management:
+  docChecksum: b2a4977441c6f3c9c2da522416c2009a
+  docVersion: 1.0.0
+  speakeasyVersion: 1.586.0
+  generationVersion: 2.661.4
+  releaseVersion: 1.7.2
+  configChecksum: b6bebcfef3e60697b27e2a4157e7a368
+  repoURL: https://github.com/ErRickow/nusaai.git
+  installationURL: https://github.com/ErRickow/nusaai
+features:
+  typescript:
+    additionalDependencies: 0.1.0
+    constsAndDefaults: 0.1.12
+    core: 3.21.14
+    defaultEnabledRetries: 0.1.0
+    devContainers: 2.90.0
+    enumUnions: 0.1.0
+    envVarSecurityUsage: 0.1.2
+    globalSecurity: 2.82.13
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
+    globalServerURLs: 2.82.5
+    methodArguments: 0.1.2
+    nullables: 0.1.1
+    responseFormat: 0.2.3
+    retries: 2.83.0
+    sdkHooks: 0.3.0
+    unions: 2.85.11
+generatedFiles:
+  - .devcontainer/README.md
+  - .devcontainer/devcontainer.json
+  - .devcontainer/setup.sh
+  - .gitattributes
+  - .npmignore
+  - FUNCTIONS.md
+  - RUNTIMES.md
+  - USAGE.md
+  - docs/lib/utils/retryconfig.md
+  - docs/models/components/categories.md
+  - docs/models/components/categoryscores.md
+  - docs/models/components/chatchoice.md
+  - docs/models/components/chatcompletionsrequest.md
+  - docs/models/components/chatcompletionsrequesttoolchoice.md
+  - docs/models/components/chatcompletionsresponse.md
+  - docs/models/components/chatmessage.md
+  - docs/models/components/chatmessagerole.md
+  - docs/models/components/embeddingobject.md
+  - docs/models/components/embeddingsrequest.md
+  - docs/models/components/embeddingsresponse.md
+  - docs/models/components/embeddingusage.md
+  - docs/models/components/encodingformat.md
+  - docs/models/components/finishreason.md
+  - docs/models/components/functiont.md
+  - docs/models/components/imagemessage.md
+  - docs/models/components/imageurl.md
+  - docs/models/components/input.md
+  - docs/models/components/messages.md
+  - docs/models/components/metadata.md
+  - docs/models/components/modelinfo.md
+  - docs/models/components/modelpricing.md
+  - docs/models/components/modelslistresponse.md
+  - docs/models/components/moderationresult.md
+  - docs/models/components/moderationsrequest.md
+  - docs/models/components/moderationsrequestinput.md
+  - docs/models/components/moderationsresponse.md
+  - docs/models/components/parameterst.md
+  - docs/models/components/permission.md
+  - docs/models/components/ratelimitdetails.md
+  - docs/models/components/reasoningrequest.md
+  - docs/models/components/responseformat.md
+  - docs/models/components/responseformattype.md
+  - docs/models/components/role.md
+  - docs/models/components/security.md
+  - docs/models/components/textmessage.md
+  - docs/models/components/tool.md
+  - docs/models/components/toolchoice.md
+  - docs/models/components/toolchoicefunction.md
+  - docs/models/components/toolchoicetype.md
+  - docs/models/components/tooltype.md
+  - docs/models/components/type.md
+  - docs/models/components/usage.md
+  - docs/models/components/usageinfo.md
+  - docs/models/errors/autherror.md
+  - docs/models/errors/autherrorcode.md
+  - docs/models/errors/autherrorerror.md
+  - docs/models/errors/badrequesterror.md
+  - docs/models/errors/code.md
+  - docs/models/errors/errort.md
+  - docs/models/errors/ratelimiterror.md
+  - docs/models/errors/ratelimiterrorcode.md
+  - docs/models/errors/ratelimiterrorerror.md
+  - docs/models/errors/servererror.md
+  - docs/models/errors/servererrorcode.md
+  - docs/models/errors/servererrorerror.md
+  - docs/models/operations/checkapikeystatusresponsebody.md
+  - docs/sdks/authentication/README.md
+  - docs/sdks/chat/README.md
+  - docs/sdks/embeddings/README.md
+  - docs/sdks/models/README.md
+  - docs/sdks/moderations/README.md
+  - docs/sdks/neosantara/README.md
+  - docs/sdks/reasoning/README.md
+  - eslint.config.mjs
+  - examples/.env.template
+  - examples/README.md
+  - examples/chatChatCompletions.example.ts
+  - examples/package.json
+  - jsr.json
+  - package.json
+  - src/core.ts
+  - src/funcs/authenticationCheckApiKeyStatus.ts
+  - src/funcs/chatChatCompletions.ts
+  - src/funcs/embeddingsEmbeddings.ts
+  - src/funcs/modelsListModels.ts
+  - src/funcs/moderationsModerations.ts
+  - src/funcs/reasoningReasoning.ts
+  - src/hooks/hooks.ts
+  - src/hooks/index.ts
+  - src/hooks/types.ts
+  - src/index.ts
+  - src/lib/base64.ts
+  - src/lib/config.ts
+  - src/lib/dlv.ts
+  - src/lib/encodings.ts
+  - src/lib/env.ts
+  - src/lib/files.ts
+  - src/lib/http.ts
+  - src/lib/is-plain-object.ts
+  - src/lib/logger.ts
+  - src/lib/matchers.ts
+  - src/lib/primitives.ts
+  - src/lib/retries.ts
+  - src/lib/schemas.ts
+  - src/lib/sdks.ts
+  - src/lib/security.ts
+  - src/lib/url.ts
+  - src/models/components/chatchoice.ts
+  - src/models/components/chatcompletionsrequest.ts
+  - src/models/components/chatcompletionsresponse.ts
+  - src/models/components/chatmessage.ts
+  - src/models/components/embeddingobject.ts
+  - src/models/components/embeddingsrequest.ts
+  - src/models/components/embeddingsresponse.ts
+  - src/models/components/embeddingusage.ts
+  - src/models/components/function.ts
+  - src/models/components/imagemessage.ts
+  - src/models/components/index.ts
+  - src/models/components/metadata.ts
+  - src/models/components/modelinfo.ts
+  - src/models/components/modelpricing.ts
+  - src/models/components/modelslistresponse.ts
+  - src/models/components/moderationresult.ts
+  - src/models/components/moderationsrequest.ts
+  - src/models/components/moderationsresponse.ts
+  - src/models/components/ratelimitdetails.ts
+  - src/models/components/reasoningrequest.ts
+  - src/models/components/responseformat.ts
+  - src/models/components/security.ts
+  - src/models/components/textmessage.ts
+  - src/models/components/tool.ts
+  - src/models/components/toolchoice.ts
+  - src/models/components/usage.ts
+  - src/models/components/usageinfo.ts
+  - src/models/errors/autherror.ts
+  - src/models/errors/badrequesterror.ts
+  - src/models/errors/httpclienterrors.ts
+  - src/models/errors/index.ts
+  - src/models/errors/naierror.ts
+  - src/models/errors/neosantaraerror.ts
+  - src/models/errors/ratelimiterror.ts
+  - src/models/errors/responsevalidationerror.ts
+  - src/models/errors/sdkvalidationerror.ts
+  - src/models/errors/servererror.ts
+  - src/models/operations/checkapikeystatus.ts
+  - src/models/operations/index.ts
+  - src/sdk/authentication.ts
+  - src/sdk/chat.ts
+  - src/sdk/embeddings.ts
+  - src/sdk/index.ts
+  - src/sdk/models.ts
+  - src/sdk/moderations.ts
+  - src/sdk/reasoning.ts
+  - src/sdk/sdk.ts
+  - src/types/async.ts
+  - src/types/blobs.ts
+  - src/types/constdatetime.ts
+  - src/types/enums.ts
+  - src/types/fp.ts
+  - src/types/index.ts
+  - src/types/operations.ts
+  - src/types/rfcdate.ts
+  - src/types/streams.ts
+  - tsconfig.json
+examples:
+  chatCompletions:
+    success_response:
+      requestBody:
+        application/json: {"model": "nusantara-base", "messages": [{"role": "system", "content": "<value>"}], "temperature": 0.7, "max_tokens": 1000, "stream": false, "n": 1, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0, "web_search": false}
+      responses:
+        "200":
+          application/json: {"id": "chatcmpl-12345", "object": "chat.completion", "created": 1717950000, "model": "nusantara-base", "choices": [{"index": 0, "message": {"role": "assistant", "content": "NeosantaraAI is an independent AI platform offering various models."}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 15, "completion_tokens": 8, "total_tokens": 23}}
+  listModels:
+    success_response:
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"id": "nusantara-base", "object": "model", "created": 1717950000, "owned_by": "NeosantaraAI", "permission": [], "root": "nusantara-base", "parent": "null", "description": "Model dasar untuk tugas umum dengan keseimbangan kinerja dan kecepatan", "capabilities": ["function_calling", "json_mode"]}, {"id": "vision-emas-2045", "object": "model", "created": 1717950000, "owned_by": "NeosantaraAI", "permission": [], "root": "vision-emas-2045", "parent": "null", "description": "Model visi canggih untuk analisis gambar KTP, struk, dan tugas visual lainnya", "capabilities": ["vision", "json_mode"]}]}
+  embeddings:
+    simple_input:
+      requestBody:
+        application/json: {"model": "nusa-embeddings-0001", "input": "example sentence", "encoding_format": "float"}
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"object": "embedding"}], "_metadata": {"creator": "NeosantaraAI"}}
+        "400":
+          application/json: {"error": {"message": "<value>", "type": "invalid_request_error", "code": "invalid_parameter"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "401":
+          application/json: {"error": {"message": "<value>", "type": "auth_error", "code": "invalid_api_key"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "429":
+          application/json: {"error": {"message": "<value>", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "500":
+          application/json: {"error": {"message": "<value>", "type": "server_error", "code": "internal_error"}, "info_metadata": {"creator": "NeosantaraAI"}}
+    multiple_inputs:
+      requestBody:
+        application/json: {"model": "nusa-embeddings-0001", "input": ["first sentence", "second sentence", "third sentence"], "encoding_format": "float"}
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"object": "embedding"}], "_metadata": {"creator": "NeosantaraAI"}}
+        "400":
+          application/json: {"error": {"message": "<value>", "type": "invalid_request_error", "code": "invalid_parameter"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "401":
+          application/json: {"error": {"message": "<value>", "type": "auth_error", "code": "invalid_api_key"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "429":
+          application/json: {"error": {"message": "<value>", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "500":
+          application/json: {"error": {"message": "<value>", "type": "server_error", "code": "internal_error"}, "info_metadata": {"creator": "NeosantaraAI"}}
+    success_response:
+      requestBody:
+        application/json: {"model": "nusa-embeddings-0001", "input": "<value>", "encoding_format": "float"}
+      responses:
+        "200":
+          application/json: {"object": "list", "data": [{"object": "embedding", "embedding": [0.123, 0.456, 0.789], "index": 0}], "model": "nusa-embeddings-0001", "usage": {"prompt_tokens": 3, "total_tokens": 3}}
+  moderations:
+    simple_check:
+      requestBody:
+        application/json: {"input": "This is a test message for moderation.", "model": "text-moderation-latest"}
+      responses:
+        "200":
+          application/json: {"_metadata": {"creator": "NeosantaraAI"}}
+        "400":
+          application/json: {"error": {"message": "<value>", "type": "invalid_request_error", "code": "invalid_parameter"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "401":
+          application/json: {"error": {"message": "<value>", "type": "auth_error", "code": "invalid_api_key"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "429":
+          application/json: {"error": {"message": "<value>", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "500":
+          application/json: {"error": {"message": "<value>", "type": "server_error", "code": "internal_error"}, "info_metadata": {"creator": "NeosantaraAI"}}
+    flagged_content:
+      requestBody:
+        application/json: {"input": "I want to kill myself.", "model": "text-moderation-latest"}
+      responses:
+        "200":
+          application/json: {"_metadata": {"creator": "NeosantaraAI"}}
+        "400":
+          application/json: {"error": {"message": "<value>", "type": "invalid_request_error", "code": "invalid_parameter"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "401":
+          application/json: {"error": {"message": "<value>", "type": "auth_error", "code": "invalid_api_key"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "429":
+          application/json: {"error": {"message": "<value>", "type": "rate_limit_exceeded", "code": "rpm_exceeded"}, "info_metadata": {"creator": "NeosantaraAI"}}
+        "500":
+          application/json: {"error": {"message": "<value>", "type": "server_error", "code": "internal_error"}, "info_metadata": {"creator": "NeosantaraAI"}}
+    clean_content:
+      requestBody:
+        application/json: {"input": ["<value 1>"], "model": "text-moderation-latest"}
+      responses:
+        "200":
+          application/json: {"id": "modr-abc123xyz456", "model": "text-moderation-latest", "results": [{"flagged": false, "categories": {"hate": false, "self-harm": false, "sexual": false, "violence": false}, "category_scores": {"hate": 0.001, "self-harm": 0.0005, "sexual": 0.0003, "violence": 0.0002}}]}
+    flagged_content_response:
+      requestBody:
+        application/json: {"input": ["<value 1>"], "model": "text-moderation-latest"}
+      responses:
+        "200":
+          application/json: {"id": "modr-abc123xyz456", "model": "text-moderation-latest", "results": [{"flagged": true, "categories": {"hate": true, "self-harm": true, "sexual": false, "violence": false}, "category_scores": {"hate": 0.95, "self-harm": 0.88, "sexual": 0.005, "violence": 0.003}}]}
+  reasoning:
+    reasoning_output:
+      requestBody:
+        application/json: {"model": "nusantara-base", "messages": [], "temperature": 0.7, "max_tokens": 1500, "stream": false, "top_p": 1, "frequency_penalty": 0, "presence_penalty": 0}
+      responses:
+        "200":
+          application/json: {"id": "reasoning-cmpl-123", "object": "chat.completion", "created": 1717950000, "model": "nusantara-base", "choices": [{"index": 0, "message": {"role": "assistant", "content": "First, calculate total distance: 120km + 180km = 300km. Next, calculate total time: 2h + 3h = 5h. Finally, average speed = total distance / total time = 300km / 5h = 60 km/h."}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 30, "completion_tokens": 50, "total_tokens": 80}}
+  checkApiKeyStatus:
+    success_response:
+      responses:
+        "200":
+          application/json: {"object": "authorization", "organization": "org-neosantara-ai", "permissions": ["chat.completions", "embeddings", "moderations"], "authorized": true, "created": 1717950000, "expires": "null", "id": "auth-xyz123abc456", "tier": "Free", "usage_info": {}}
+examplesVersion: 1.0.2

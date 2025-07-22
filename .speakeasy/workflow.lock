@@ -1,0 +1,29 @@
+speakeasyVersion: 1.586.0
+sources:
+    nusaai:
+        sourceNamespace: nusaai
+        sourceRevisionDigest: sha256:c50c2c1b563cede398e41028bec556fcf83d3e254c871032e458f9172b7d60ff
+        sourceBlobDigest: sha256:0d02e84a4c0fb9581b71d6991aab668e07a42c687a3c9fa907c78059a21d7989
+        tags:
+            - latest
+            - speakeasy-sdk-regen-1753206009
+            - 1.0.0
+targets:
+    my-target:
+        source: nusaai
+        sourceNamespace: nusaai
+        sourceRevisionDigest: sha256:c50c2c1b563cede398e41028bec556fcf83d3e254c871032e458f9172b7d60ff
+        sourceBlobDigest: sha256:0d02e84a4c0fb9581b71d6991aab668e07a42c687a3c9fa907c78059a21d7989
+workflow:
+    workflowVersion: 1.0.0
+    speakeasyVersion: latest
+    sources:
+        nusaai:
+            inputs:
+                - location: ./openapi.json
+            registry:
+                location: registry.speakeasyapi.dev/nusa-ai/sdk/nusaai
+    targets:
+        my-target:
+            target: typescript
+            source: nusaai
