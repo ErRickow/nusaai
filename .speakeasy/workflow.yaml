@@ -3,7 +3,7 @@ speakeasyVersion: latest
 sources:
   nusaai:
     inputs:
-      - location: ./nusantara_openapi_v5.json
+      - location: ./openapi.json
 targets:
   my-target:
     target: typescript
