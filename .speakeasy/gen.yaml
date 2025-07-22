@@ -27,7 +27,6 @@ typescript:
   author: NeosantaraXYZ
   clientServerStatusCodesAsErrors: true
   defaultErrorName: SDKError
-  enableCustomCodeRegions: true
   enableMCPServer: false
   enableReactQuery: false
   enumFormat: union

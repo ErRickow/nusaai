@@ -6,6 +6,7 @@ permissions:
   statuses: write
 
 on:
+  push:
   workflow_dispatch:
     inputs:
       force:
