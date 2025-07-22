@@ -1,7 +1,8 @@
 configVersion: 2.0.0
 generation:
   devContainers:
-    enabled: false
+    enabled: true
+    schemaPath: registry.speakeasyapi.dev/nusa-ai/sdk/nusaai:1.0.0
   sdkClassName: neosantara
   maintainOpenAPIOrder: true
   usageSnippets:
@@ -26,11 +27,11 @@ typescript:
   additionalPackageJSON: {}
   author: NeosantaraXYZ
   clientServerStatusCodesAsErrors: true
-  defaultErrorName: SDKError
+  defaultErrorName: NAIError
   enableMCPServer: false
   enableReactQuery: false
   enumFormat: union
-  envVarPrefix: NAI
+  envVarPrefix: NEOSANTARA
   flattenGlobalSecurity: true
   flatteningOrder: body-first
   imports:

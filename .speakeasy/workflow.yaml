@@ -3,7 +3,7 @@ speakeasyVersion: latest
 sources:
   nusaai:
     inputs:
-      - location: ./openapi.json
+      - location: registry.speakeasyapi.dev/nusa-ai/sdk/nusaai:1.0.0
 targets:
   my-target:
     target: typescript
