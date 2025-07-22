@@ -2,7 +2,7 @@ configVersion: 2.0.0
 generation:
   devContainers:
     enabled: true
-    schemaPath: registry.speakeasyapi.dev/nusa-ai/sdk/nusaai:1.0.0
+    schemaPath: ./openapi.json
   sdkClassName: neosantara
   maintainOpenAPIOrder: true
   usageSnippets:
