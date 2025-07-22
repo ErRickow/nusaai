@@ -110,85 +110,6 @@
         }
       }
     },
-    "/completions": {
-      "post": {
-        "tags": [
-          "completions"
-        ],
-        "summary": "Create text completion (Legacy)",
-        "description": "Legacy endpoint for text completions. Use /v1/chat/completions for new implementations.",
-        "operationId": "textCompletions",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TextCompletionsRequest"
-              },
-              "examples": {
-                "simple_text_prompt": {
-                  "summary": "Simple text prompt completion",
-                  "value": {
-                    "model": "nusantara-base",
-                    "prompt": "The future of artificial intelligence is",
-                    "max_tokens": 100,
-                    "temperature": 0.7
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Text completion result",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TextCompletionResponse"
-                },
-                "examples": {
-                  "success_response": {
-                    "summary": "Successful text completion response",
-                    "value": {
-                      "id": "cmpl-abc123def456",
-                      "object": "text_completion",
-                      "created": 1717950000,
-                      "model": "nusantara-base",
-                      "choices": [
-                        {
-                          "text": " exciting and full of possibilities.",
-                          "index": 0,
-                          "logprobs": null,
-                          "finish_reason": "length"
-                        }
-                      ],
-                      "usage": {
-                        "prompt_tokens": 6,
-                        "completion_tokens": 7,
-                        "total_tokens": 13
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "401": {
-            "$ref": "#/components/responses/AuthError"
-          },
-          "429": {
-            "$ref": "#/components/responses/RateLimitError"
-          },
-          "500": {
-            "$ref": "#/components/responses/ServerError"
-          }
-        }
-      }
-    },
     "/models": {
       "get": {
         "tags": [
@@ -218,7 +139,7 @@
                           "owned_by": "NeosantaraAI",
                           "permission": [],
                           "root": "nusantara-base",
-                          "parent": null,
+                          "parent": "null",
                           "description": "Model dasar untuk tugas umum dengan keseimbangan kinerja dan kecepatan",
                           "capabilities": [
                             "function_calling",
@@ -232,7 +153,7 @@
                           "owned_by": "NeosantaraAI",
                           "permission": [],
                           "root": "vision-emas-2045",
-                          "parent": null,
+                          "parent": "null",
                           "description": "Model visi canggih untuk analisis gambar KTP, struk, dan tugas visual lainnya",
                           "capabilities": [
                             "vision",
@@ -589,7 +510,7 @@
                       ],
                       "authorized": true,
                       "created": 1717950000,
-                      "expires": null,
+                      "expires": "null",
                       "id": "auth-xyz123abc456",
                       "tier": "Free",
                       "usage_info": {
@@ -984,36 +905,6 @@
           }
         }
       },
-      "TextCompletionResponse": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "object": {
-            "type": "string",
-            "example": "text_completion"
-          },
-          "created": {
-            "type": "integer"
-          },
-          "model": {
-            "type": "string"
-          },
-          "choices": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TextChoice"
-            }
-          },
-          "usage": {
-            "$ref": "#/components/schemas/Usage"
-          },
-          "_metadata": {
-            "$ref": "#/components/schemas/Metadata"
-          }
-        }
-      },
       "EmbeddingsResponse": {
         "type": "object",
         "properties": {
@@ -1332,13 +1223,7 @@
             "type": "string",
             "format": "date-time"
           }
-        },
-        "required": [
-          "used",
-          "limit",
-          "remaining",
-          "reset_at"
-        ]
+        }
       },
       "ApiKey": {
         "type": "object",
