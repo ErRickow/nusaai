@@ -1,0 +1,30 @@
+{
+  "name": "neosantara-ai",
+  "version": "1.7.2",
+  "author": "NeosantaraXYZ",
+  "main": "./index.js",
+  "sideEffects": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ErRickow/nusaai.git"
+  },
+  "scripts": {
+    "lint": "eslint --cache --max-warnings=0 src",
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "zod": "^3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.19.0",
+    "eslint": "^9.19.0",
+    "globals": "^15.14.0",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^8.22.0",
+    "zod": "^3.25.17"
+  },
+  "dependencies": {
+    "zod-to-json-schema": "^3.24.1"
+  }
+}
